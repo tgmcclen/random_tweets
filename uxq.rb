@@ -28,5 +28,5 @@ get '/tag/:tag' do
 end
 
 def refresh(tag)
-  UxqTwitter.tweets[tag] = UxqTwitter.client.search("##{tag}", result_type: "mixed", count: 15).to_a
+  UxqTwitter.tweets[tag] = UxqTwitter.client.search("##{tag}", lang: 'en', result_type: 'mixed', count: 15).to_a
 end
