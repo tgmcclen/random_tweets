@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'twitter'
 
-class UxqTwitter
+class TweetFactory
   @@client = Twitter::REST::Client.new do |config|
     config.consumer_key = ENV["TWITTER_CONSUMER_KEY"]
     config.consumer_secret = ENV["TWITTER_CONSUMER_SECRET"]
@@ -22,11 +22,11 @@ end
 
 get '/tag/:tag' do
   tag = params['tag']
-  refresh(tag) if UxqTwitter.tweets[tag] == nil
-  t = UxqTwitter.tweets[tag].sample
+  refresh(tag) if TweetFactory.tweets[tag] == nil
+  t = TweetFactory.tweets[tag].sample
   "<h1>#{t.user.screen_name}: #{t.text}</h1>"
 end
 
 def refresh(tag)
-  UxqTwitter.tweets[tag] = UxqTwitter.client.search("##{tag}", lang: 'en', result_type: 'mixed', count: 15).to_a
+  TweetFactory.tweets[tag] = TweetFactory.client.search("##{tag}", lang: 'en', result_type: 'mixed', count: 15).to_a
 end
