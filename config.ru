@@ -1,2 +1,2 @@
-require './random_tweets'
-run Sinatra::Application
+require './app'
+run App
